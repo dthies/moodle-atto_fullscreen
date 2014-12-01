@@ -127,6 +127,9 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
             Y.one('body').insertBefore(this._background, this._wrapper);
             host._wrapper.setStyles({position: 'fixed', "top": '0px', left: '0px', scroll: "auto"});
 
+            // Use CSS to hide navigation
+            Y.one('body').addClass('atto-fullscreen');
+
         } else {
             Y.one('body').setStyle('overflow', 'inherit');
             this._background.remove();
@@ -134,6 +137,9 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
             host._wrapper.setStyles(this._wrapperStyle);
             host.editor.removeAttribute('style');
             host.editor.setStyles(this._editorStyle);
+
+            Y.one('body').removeClass('atto-fullscreen');
+
         }
         button.setData(STATE, !!mode);
         this._fitToScreen();

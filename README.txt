@@ -2,7 +2,7 @@ atto_fullscreen
 =================
 
 This is a plugin for Atto editor in Moodle that allows in to toggle into
-fullscreen mode. To install unpack to lib/editor/atto/plugins/fullscrean, 
+fullscreen mode. To install unpack to lib/editor/atto/plugins/fullscreen, 
 and visit the admin notifications page to install.  Then add the button
 on the Atto toolbar settings page.
 
