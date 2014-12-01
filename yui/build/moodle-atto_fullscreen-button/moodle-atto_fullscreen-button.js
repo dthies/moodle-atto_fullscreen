@@ -94,13 +94,16 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
         var height = host.editor.get('winHeight'),
             width = host.editor.get('winWidth');
         host.editor.setStyle('height', height);
-        host.editor.setStyle('width', width);
-        host._wrapper.setStyle('max-height', height);
-        host._wrapper.setStyle('width', width);
-        host._wrapper.setStyle('min-width', width);
-        this._background.setStyles({"height": height + "px", "width": width + "px"});
+        host._wrapper.setStyles({
+            "maxHeight": height,
+            "maxWidth": width,
+            "width": width
+        });
+        this._background.setStyles({
+            "height": height + "px",
+            "width": width + "px"
+        });
         window.scroll(this._background.getX(), this._background.getY());
-        //window.scroll(host._wrapper.ancestor().getX(), host._wrapper.ancestor().getY());
     },
 
     /**
@@ -116,14 +119,13 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
 
         if (mode) {
             Y.one('body').setStyle('overflow', 'hidden');
-            this._wrapperStyle = {
-                maxHeight: host._wrapper.getStyle('max-height'),
-                minHeight: host._wrapper.getStyle('min-height'),
-                height: host._wrapper.getStyle('height')
-            };
+
+            // Save style attribute for editor.
             this._editorStyle = {
+                minHeight: host.editor.getStyle('min-height'),
                 height: host.editor.getStyle('height')
             };
+
             Y.one('body').insertBefore(this._background, this._wrapper);
             host._wrapper.setStyles({position: 'fixed', "top": '0px', left: '0px', scroll: "auto"});
 
@@ -133,10 +135,13 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
         } else {
             Y.one('body').setStyle('overflow', 'inherit');
             this._background.remove();
+
+            // Restore editor style.
+            if (this._editorStyle) {
+                host.editor.removeAttribute('style');
+                host.editor.setStyles(this._editorStyle);
+            }
             host._wrapper.removeAttribute('style');
-            host._wrapper.setStyles(this._wrapperStyle);
-            host.editor.removeAttribute('style');
-            host.editor.setStyles(this._editorStyle);
 
             Y.one('body').removeClass('atto-fullscreen');
 
