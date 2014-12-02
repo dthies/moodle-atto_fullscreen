@@ -47,8 +47,8 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
         // After all plugins have been loaded for the first time, finish configuration and add screen resizing listener.
         this.get('host').on('pluginsloaded', function(e, button) {
             this._setFullscreen(button);
-            this.toolbar.after('click', Y.bind(this._fitToScreen, this));
-            Y.on('windowresize', Y.bind(this._fitToScreen, this));
+            this.toolbar.after('click', this._fitToScreen, this);
+            Y.on('windowresize', this._fitToScreen, this);
         }, this, button);
 
     },
@@ -88,12 +88,29 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
         var host = this.get('host');
         var height = host.editor.get('winHeight') + "px",
             width = host.editor.get('winWidth') + "px";
-        host.editor.setStyle('height', host.editor.get('winHeight') - parseInt(this.toolbar.getStyle('height') + "px"));
-        host._wrapper.setStyles({
-            "maxHeight": height,
+
+        host.editor.setStyles({
             "height": height,
+            "max-height": height
+        });
+        host.textarea.setStyles({
+            "overflow": "scroll",
+            "width": width,
+            "height": height,
+            "max-height": height
+        });
+        host._wrapper.setStyles({
             "maxWidth": width,
             "width": width
+        });
+        height = 2 * host.editor.get('winHeight') - parseInt(host._wrapper.getComputedStyle('height')) + "px";
+        host.editor.setStyles({
+            "height": height,
+            "maxHeight": height
+        });
+        host.textarea.setStyles({
+            "height": height,
+            "maxHeight": height
         });
         window.scroll(host._wrapper.getX(), host._wrapper.getY());
     },
@@ -112,10 +129,14 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
         if (mode) {
             Y.one('body').setStyle('overflow', 'hidden');
 
-            // Save style attribute for editor.
+            // Save style attribute for editor and textarea.
             this._editorStyle = {
                 minHeight: host.editor.getStyle('min-height'),
                 height: host.editor.getStyle('height')
+            };
+            this._textareaStyle = {
+                width: host.textarea.getStyle('width'),
+                height: host.textarea.getStyle('height')
             };
 
             // Use CSS to hide navigation
@@ -124,10 +145,14 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
         } else {
             Y.one('body').setStyle('overflow', 'inherit');
 
-            // Restore editor style.
+            // Restore editor and textarea style.
             if (this._editorStyle) {
                 host.editor.removeAttribute('style');
                 host.editor.setStyles(this._editorStyle);
+            }
+            if (this._textareaStyle) {
+                host.textarea.removeAttribute('style');
+                host.textarea.setStyles(this._textareaStyle);
             }
             host._wrapper.removeAttribute('style');
 
