@@ -158,8 +158,12 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
                 host.editor.setStyles(this._editorStyle);
             }
             if (this._textareaStyle) {
+                if (host.textarea.getComputedStyle('display') === "none") {
+                    this._textareaStyle.display = "none";
+                }
                 host.textarea.removeAttribute('style');
                 host.textarea.setStyles(this._textareaStyle);
+                
             }
             host._wrapper.removeAttribute('style');
 
