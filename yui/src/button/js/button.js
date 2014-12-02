@@ -42,13 +42,18 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
             iconComponent: PLUGINNAME,
             callback: this._toggle
         });
+        var host = this.get('host');
         button.set('title', M.util.get_string('fullscreen:desc', 'editor_tinymce'));
 
         // After all plugins have been loaded for the first time, finish configuration and add screen resizing listener.
-        this.get('host').on('pluginsloaded', function(e, button) {
+        host.on('pluginsloaded', function(e, button) {
             this._setFullscreen(button);
             this.toolbar.after('click', this._fitToScreen, this);
             Y.on('windowresize', this._fitToScreen, this);
+            // Do not let html source plugin disable us.
+            host.textarea.after('focus', function() {
+               host.enablePlugins("fullscreen");
+            });
         }, this, button);
 
     },
