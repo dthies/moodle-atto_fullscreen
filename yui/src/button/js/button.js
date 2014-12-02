@@ -50,6 +50,7 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
         // After all plugins have been loaded for the first time, finish configuration and add screen resizing listener.
         this.get('host').on('pluginsloaded', function(e, button) {
             this._setFullscreen(button);
+            this.toolbar.after('click', Y.bind(this._fitToScreen, this));
             Y.on('windowresize', Y.bind(this._fitToScreen, this));
         }, this, button);
 
@@ -74,7 +75,6 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
             this._setFullscreen(button, true);
         }
 
-        this.buttons[this.name].focus();
     },
 
     /**
