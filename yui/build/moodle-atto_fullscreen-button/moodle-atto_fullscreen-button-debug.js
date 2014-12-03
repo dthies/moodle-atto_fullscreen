@@ -136,14 +136,10 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
         if (mode) {
             Y.one('body').setStyle('overflow', 'hidden');
 
-            // Save style attribute for editor and textarea.
+            // Save style attribute for editor.
             this._editorStyle = {
                 minHeight: host.editor.getStyle('min-height'),
                 height: host.editor.getStyle('height')
-            };
-            this._textareaStyle = {
-                width: host.textarea.getStyle('width'),
-                height: host.textarea.getStyle('height')
             };
 
             // Use CSS to hide navigation
@@ -156,18 +152,18 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
             if (this._editorStyle) {
                 host.editor.removeAttribute('style');
                 host.editor.setStyles(this._editorStyle);
-            }
-            if (this._textareaStyle) {
                 if (host.textarea.getComputedStyle('display') === "none") {
-                    this._textareaStyle.display = "none";
+                    host.textarea.removeAttribute('style');
+                    host.textarea.setStyle("display", "none");
+                } else {
+                    host.textarea.removeAttribute('style');
                 }
-                host.textarea.removeAttribute('style');
-                host.textarea.setStyles(this._textareaStyle);
                 
             }
             host._wrapper.removeAttribute('style');
 
             Y.one('body').removeClass('atto-fullscreen');
+            host.textarea.setStyle('width', this.toolbar.getComputedStyle('width'));
 
         }
         button.setData(STATE, !!mode);
