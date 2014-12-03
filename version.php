@@ -28,4 +28,4 @@ $plugin->version   = 2014120200;        // The current plugin version (Date: YYY
 $plugin->requires  = 2014051200;        // Requires this Moodle version.
 $plugin->component = 'atto_fullscreen';  // Full name of the plugin (used for diagnostics).
 $plugin->maturity = MATURITY_STABLE; // Maturity level.
-$plugin->release = 2014120200;
+$plugin->release = 2014120300;
