@@ -106,7 +106,10 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
         });
         host._wrapper.setStyles({
             "maxWidth": width,
-            "width": width
+            "width": width,
+            "top": 0,
+            "left": 0,
+            "position": "fixed"
         });
         height = 2 * host.editor.get('winHeight') - parseInt(host._wrapper.getComputedStyle('height')) + "px";
         host.editor.setStyles({
@@ -115,7 +118,10 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
         });
         host.textarea.setStyles({
             "height": height,
-            "maxHeight": height
+            "maxHeight": height,
+            "top": parseInt(host.toolbar.getComputedStyle('height')) + 10 + "px",
+            "left": 0,
+            "position": "fixed"
         });
         window.scroll(host._wrapper.getX(), host._wrapper.getY());
     },
@@ -156,7 +162,7 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
                 } else {
                     host.textarea.removeAttribute('style');
                 }
-                
+
             }
             host._wrapper.removeAttribute('style');
 
