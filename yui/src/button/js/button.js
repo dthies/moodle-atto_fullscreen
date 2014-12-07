@@ -91,38 +91,39 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
             return;
         }
         var host = this.get('host');
-        var height = host.editor.get('winHeight') + "px",
-            width = host.editor.get('winWidth') + "px";
+        var height = host.editor.get('winHeight') - parseFloat(host.toolbar.getComputedStyle('height')),
+            width = host.editor.get('winWidth');
 
         host.editor.setStyles({
-            "height": height,
-            "max-height": height
-        });
-        host.textarea.setStyles({
-            "overflow": "scroll",
-            "width": width,
             "height": height,
             "max-height": height
         });
         host._wrapper.setStyles({
             "maxWidth": width,
             "width": width,
-            "top": 0,
-            "left": 0,
-            "position": "fixed"
+            "top": 0
         });
-        height = 2 * host.editor.get('winHeight') - parseInt(host._wrapper.getComputedStyle('height')) + "px";
+        var hide = host.editor.hasAttribute('hidden') || host.editor.getComputedStyle('display') === 'none';
+        host.editor.show();
+        height = parseFloat(height) + host.editor.get('winHeight') - parseFloat(host._wrapper.getComputedStyle('height'));
         host.editor.setStyles({
             "height": height,
             "maxHeight": height
         });
+        height = parseFloat(height) + 20;
         host.textarea.setStyles({
+            "padding": host.editor.getComputedStyle('padding'),
+            "margin": host.editor.getComputedStyle('margin'),
+            "width": width,
             "height": height,
             "maxHeight": height,
-            "top": parseInt(host.toolbar.getComputedStyle('height')) + 10 + "px",
-            "left": 0,
-            "position": "fixed"
+            "top": host.editor.getY() - host.toolbar.getY()
         });
+        
+        host.textarea.setStyle("margin-bottom", parseFloat(host.editor.getComputedStyle('margin-bottom')) + 20);
+        if (hide) {
+            this.editor.hide();
+        }
         window.scroll(host._wrapper.getX(), host._wrapper.getY());
     },
 
@@ -148,6 +149,17 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
 
             // Use CSS to hide navigation
             Y.one('body').addClass('atto-fullscreen');
+
+            host.textarea.setStyles({
+                "position": "fixed",
+                "overflow-x": "auto",
+                "overflow-y": "auto",
+                "left": 0
+            });
+            host._wrapper.setStyles({
+                "left": 0,
+                "position": "fixed"
+            });
 
         } else {
             Y.one('body').setStyle('overflow', 'inherit');
