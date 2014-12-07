@@ -96,9 +96,10 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
         var height = host.editor.get('winHeight') - parseFloat(host.toolbar.getComputedStyle('height')),
             width = host.editor.get('winWidth');
 
+height =  parseFloat(host.editor.getComputedStyle('height'));
         host.editor.setStyles({
-            "height": height,
-            "max-height": height
+            //"height": height,
+            //"max-height": height
         });
         host._wrapper.setStyles({
             "maxWidth": width,

@@ -91,19 +91,16 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
             return;
         }
         var host = this.get('host');
-        var height = host.editor.get('winHeight') - parseFloat(host.toolbar.getComputedStyle('height')),
+        var height =  parseFloat(host.editor.getComputedStyle('height')),
             width = host.editor.get('winWidth');
+        var hide = host.editor.hasAttribute('hidden') || host.editor.getComputedStyle('display') === 'none';
 
-        host.editor.setStyles({
-            "height": height,
-            "max-height": height
-        });
         host._wrapper.setStyles({
             "maxWidth": width,
             "width": width,
             "top": 0
         });
-        var hide = host.editor.hasAttribute('hidden') || host.editor.getComputedStyle('display') === 'none';
+
         host.editor.show();
         height = parseFloat(height) + host.editor.get('winHeight') - parseFloat(host._wrapper.getComputedStyle('height'));
         host.editor.setStyles({
