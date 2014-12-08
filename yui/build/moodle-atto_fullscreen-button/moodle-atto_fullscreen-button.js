@@ -48,7 +48,7 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
         button.set('title', M.util.get_string('fullscreen:desc', 'editor_tinymce'));
 
         // In fullscreen mode the editor uses fixed positioning with a empty div for a background
-        this._background = Y.Node.create('<div></div>');
+        this._background = Y.Node.create('<div style="position: relative"></div>');
 
         // After all plugins have been loaded for the first time, finish configuration and add screen resizing listener.
         host.on('pluginsloaded', function(e, button) {
@@ -127,6 +127,8 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
             this.editor.hide();
         }
         this._background.setStyles({
+            //"left": (parseFloat(Y.one('body').getComputedStyle('margin-bottom')) -
+            "left": - host.editor.get('winWidth') / 2,
             "height": host.editor.get('winHeight'),
             "width": host.editor.get('winWidth')
         });
