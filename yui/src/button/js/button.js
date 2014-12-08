@@ -45,6 +45,9 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
         var host = this.get('host');
         button.set('title', M.util.get_string('fullscreen:desc', 'editor_tinymce'));
 
+        // In fullscreen mode the editor uses fixed positioning with a empty div for a background
+        this._background = Y.Node.create('<div></div>');
+
         // After all plugins have been loaded for the first time, finish configuration and add screen resizing listener.
         host.on('pluginsloaded', function(e, button) {
             this._setFullscreen(button);
@@ -121,7 +124,11 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
         if (hide) {
             this.editor.hide();
         }
-        window.scroll(host._wrapper.getX(), host._wrapper.getY());
+        this._background.setStyles({
+            "height": host.editor.get('winHeight'),
+            "width": host.editor.get('winWidth')
+        });
+        window.scroll(this._background.getX(), this._background.getY());
     },
 
     /**
@@ -144,6 +151,9 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
                 height: host.editor.getStyle('height')
             };
 
+            Y.one('body').insertBefore(this._background, host._wrapper);
+            host._wrapper.setStyles({position: 'fixed', "top": '0px', left: '0px', scroll: "auto"});
+
             // Use CSS to hide navigation
             Y.one('body').addClass('atto-fullscreen');
 
@@ -160,6 +170,7 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
 
         } else {
             Y.one('body').setStyle('overflow', 'inherit');
+            this._background.remove();
 
             // Restore editor and textarea style.
             if (this._editorStyle) {

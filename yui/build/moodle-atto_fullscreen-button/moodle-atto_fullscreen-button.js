@@ -47,6 +47,9 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
         var host = this.get('host');
         button.set('title', M.util.get_string('fullscreen:desc', 'editor_tinymce'));
 
+        // In fullscreen mode the editor uses fixed positioning with a empty div for a background
+        this._background = Y.Node.create('<div></div>');
+
         // After all plugins have been loaded for the first time, finish configuration and add screen resizing listener.
         host.on('pluginsloaded', function(e, button) {
             this._setFullscreen(button);
@@ -93,20 +96,16 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
             return;
         }
         var host = this.get('host');
-        var height = host.editor.get('winHeight') - parseFloat(host.toolbar.getComputedStyle('height')),
+        var height =  parseFloat(host.editor.getComputedStyle('height')),
             width = host.editor.get('winWidth');
+        var hide = host.editor.hasAttribute('hidden') || host.editor.getComputedStyle('display') === 'none';
 
-height =  parseFloat(host.editor.getComputedStyle('height'));
-        host.editor.setStyles({
-            //"height": height,
-            //"max-height": height
-        });
         host._wrapper.setStyles({
             "maxWidth": width,
             "width": width,
             "top": 0
         });
-        var hide = host.editor.hasAttribute('hidden') || host.editor.getComputedStyle('display') === 'none';
+
         host.editor.show();
         height = parseFloat(height) + host.editor.get('winHeight') - parseFloat(host._wrapper.getComputedStyle('height'));
         host.editor.setStyles({
@@ -127,7 +126,11 @@ height =  parseFloat(host.editor.getComputedStyle('height'));
         if (hide) {
             this.editor.hide();
         }
-        window.scroll(host._wrapper.getX(), host._wrapper.getY());
+        this._background.setStyles({
+            "height": host.editor.get('winHeight'),
+            "width": host.editor.get('winWidth')
+        });
+        window.scroll(this._background.getX(), this._background.getY());
     },
 
     /**
@@ -150,6 +153,9 @@ height =  parseFloat(host.editor.getComputedStyle('height'));
                 height: host.editor.getStyle('height')
             };
 
+            Y.one('body').insertBefore(this._background, host._wrapper);
+            host._wrapper.setStyles({position: 'fixed', "top": '0px', left: '0px', scroll: "auto"});
+
             // Use CSS to hide navigation
             Y.one('body').addClass('atto-fullscreen');
 
@@ -166,6 +172,7 @@ height =  parseFloat(host.editor.getComputedStyle('height'));
 
         } else {
             Y.one('body').setStyle('overflow', 'inherit');
+            this._background.remove();
 
             // Restore editor and textarea style.
             if (this._editorStyle) {
