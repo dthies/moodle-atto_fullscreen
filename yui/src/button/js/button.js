@@ -55,7 +55,7 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
             Y.on('windowresize', Y.bind(this._fitToScreen, this));
             // Do not let html source plugin disable us.
             host.textarea.after('focus', function() {
-               host.enablePlugins("fullscreen");
+               host.enablePlugins(FULLSCREEN);
             });
         }, this, button);
 
@@ -83,7 +83,7 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
     },
 
     /**
-     * Adjust editor to screen screen size
+     * Adjust editor to screen size
      *
      * @method _fitToScreen
      * @private
@@ -94,18 +94,24 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
             return;
         }
         var host = this.get('host');
-        var height =  parseFloat(host.editor.getComputedStyle('height')),
-            width = host.editor.get('winWidth');
+        var height;
         var hide = host.editor.hasAttribute('hidden') || host.editor.getComputedStyle('display') === 'none';
 
+        this._background.setStyles({
+            "left": - host.editor.get('winWidth') / 2,
+            "height": host.editor.get('winHeight'),
+            "width": host.editor.get('winWidth')
+        });
+        window.scroll(this._background.getX(), this._background.getY());
+
         host._wrapper.setStyles({
-            "maxWidth": width,
-            "width": width,
+            "maxWidth": "100%",
+            "width": "100%",
             "top": 0
         });
 
         host.editor.show();
-        height = parseFloat(height) + host.editor.get('winHeight') - parseFloat(host._wrapper.getComputedStyle('height'));
+        height = parseFloat(host.editor.getComputedStyle('height')) + host.editor.get('winHeight') - parseFloat(host._wrapper.getComputedStyle('height'));
         host.editor.setStyles({
             "height": height,
             "maxHeight": height
@@ -114,7 +120,7 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
         host.textarea.setStyles({
             "padding": host.editor.getComputedStyle('padding'),
             "margin": host.editor.getComputedStyle('margin'),
-            "width": width,
+            "width": host.editor.getComputedStyle('width'),
             "height": height,
             "maxHeight": height,
             "top": host.editor.getY() - host.toolbar.getY()
@@ -123,13 +129,18 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
         host.textarea.setStyle("margin-bottom", parseFloat(host.editor.getComputedStyle('margin-bottom')) + 20);
         if (hide) {
             this.editor.hide();
+            // If using htmlplus allow it to be position in editor's spot.
+            if (host.textarea.hasAttribute('hidden') || host.textarea.getComputedStyle('display') === 'none') {
+                this._background.setStyles({
+                    "left": "0px",
+                    "padding": host._wrapper.getComputedStyle('padding'),
+                    "margin": host._wrapper.getComputedStyle('margin'),
+                    "height": host._wrapper.getComputedStyle('height'),
+                    "width": host._wrapper.getComputedStyle('width')
+                });
+                window.scroll(this._background.getX(), this._background.getY());
+            }
         }
-        this._background.setStyles({
-            "left": - host.editor.get('winWidth') / 2,
-            "height": host.editor.get('winHeight'),
-            "width": host.editor.get('winWidth')
-        });
-        window.scroll(this._background.getX(), this._background.getY());
     },
 
     /**
@@ -160,8 +171,7 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
 
             host.textarea.setStyles({
                 "position": "fixed",
-                "overflow-x": "auto",
-                "overflow-y": "auto",
+                "overflow": "auto",
                 "left": 0
             });
             host._wrapper.setStyles({

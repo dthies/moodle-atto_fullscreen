@@ -12,3 +12,8 @@
     display: none;
     visibility: hidden
 }
+
+.atto-fullscreen .back-to-top {
+    display: none;
+    visibility: hidden
+}
