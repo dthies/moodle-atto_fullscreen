@@ -15,14 +15,23 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'atto_fullscreen', language 'en'.
+ * Settings that allow configuration of the fullscreen appearance
  *
  * @package    atto_fullscreen
- * @copyright  2014 onward Daniel Thies <dthies@ccal.edu>
+ * @copyright  2015 Daniel Thies (dthies@ccal.edu)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'Toggle full screen';
-$string['settings'] = 'Full screen settings';
-$string['requireedit'] = 'Require editing';
-$string['requireedit_desc'] = 'Require capability to manage activities before showing fullscreen button';
+defined('MOODLE_INTERNAL') || die();
+
+$ADMIN->add('editoratto', new admin_category('atto_fullscreen', new lang_string('pluginname', 'atto_fullscreen')));
+
+$settings = new admin_settingpage('atto_fullscreen_settings', new lang_string('settings', 'atto_fullscreen'));
+if ($ADMIN->fulltree) {
+    $setting = new admin_setting_configcheckbox('atto_fullscreen/requireedit',
+        get_string('requireedit', 'atto_fullscreen'),
+        get_string('requireedit_desc', 'atto_fullscreen'),
+        0);
+
+    $settings->add($setting);
+}

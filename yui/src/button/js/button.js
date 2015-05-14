@@ -31,15 +31,16 @@
  * @extends M.editor_atto.EditorPlugin
  */
 
-var PLUGINNAME = 'atto_fullscreen',
-    FULLSCREEN = 'fullscreen',
+var FULLSCREEN = 'fullscreen',
     STATE = false;
 
 Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_atto.EditorPlugin, [], {
     initializer: function() {
+        if (!this.get('enablebutton')) {
+            return;
+        }
         var button = this.addButton({
-            icon: 'icon',
-            iconComponent: PLUGINNAME,
+            icon: 'e/fullscreen',
             callback: this._toggle
         });
         var host = this.get('host');
@@ -111,7 +112,9 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
         });
 
         host.editor.show();
-        height = parseFloat(host.editor.getComputedStyle('height')) + host.editor.get('winHeight') - parseFloat(host._wrapper.getComputedStyle('height'));
+        height = parseFloat(host.editor.getComputedStyle('height'))
+            + host.editor.get('winHeight')
+            - parseFloat(host._wrapper.getComputedStyle('height'));
         host.editor.setStyles({
             "height": height,
             "maxHeight": height
@@ -204,5 +207,17 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
         button.setData(STATE, !!mode);
         this._fitToScreen();
 
+    }
+}, {
+    ATTRS: {
+        /**
+         * Whether the button should be displayed
+         *
+         * @attribute enablebutton
+         * @type Boolean
+         */
+        enablebutton: {
+            value: false
+        }
     }
 });

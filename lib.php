@@ -33,3 +33,19 @@ function atto_fullscreen_strings_for_js() {
     $PAGE->requires->strings_for_js(array('fullscreen:desc'), 'editor_tinymce');
 }
 
+/**
+ * Set params for this plugin.
+ *
+ * @param string $elementid
+ * @param stdClass $options - the options for the editor, including the context.
+ * @param stdClass $fpoptions - unused.
+ */
+function atto_fullscreen_params_for_js($elementid, $options, $fpoptions) {
+    $context = $options['context'];
+    if (!$context) {
+        $context = context_system::instance();
+    }
+    $enablebutton = !get_config('atto_fullscreen', 'requireedit') || has_capability('moodle/course:manageactivities', $context);
+
+    return array('enablebutton' => $enablebutton);
+}
