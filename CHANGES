@@ -1,0 +1,5 @@
+version 20150513
+
+Add a setting to require the capablity to arrange activities. The function
+is to prevent the fullscreen option being available to students to keep
+the toolbar more minimal.
