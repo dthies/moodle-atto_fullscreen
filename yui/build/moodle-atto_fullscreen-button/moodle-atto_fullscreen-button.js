@@ -60,6 +60,12 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
             host.textarea.after('focus', function() {
                host.enablePlugins(FULLSCREEN);
             });
+            // Prevent htmlplus from deactivating.
+            host.toolbar.after('click', function(e) {
+               if (e.target._node.className === 'atto_htmlplus_button') {
+                   host.enablePlugins(FULLSCREEN);
+               }
+            });
         }, this, button);
 
     },
@@ -130,8 +136,18 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
             "maxHeight": height,
             "top": host.editor.getY() - host.toolbar.getY()
         });
-        
+
         host.textarea.setStyle("margin-bottom", parseFloat(host.editor.getComputedStyle('margin-bottom')) + 20);
+
+        // Set dimensions for htmlplus textarea to match if installed.
+        host.toolbar.ancestor('.editor_atto_wrap').all('.CodeMirror-wrap').setStyles({
+            "padding": host.textarea.getStyle('padding'),
+            "margin": host.textarea.getStyle('margin'),
+            "height": parseInt(host.textarea.getStyle('height')) - 20,
+            "maxHeight": parseInt(host.textarea.getStyle('maxHeight')) - 20,
+            "width": host.textarea.getStyle('width')
+        });
+
         if (hide) {
             this.editor.hide();
             // If using htmlplus allow it to be position in editor's spot.
@@ -192,6 +208,7 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
             if (this._editorStyle) {
                 host.editor.removeAttribute('style');
                 host.editor.setStyles(this._editorStyle);
+
                 if (host.textarea.getComputedStyle('display') === "none") {
                     host.textarea.removeAttribute('style');
                     host.textarea.setStyle("display", "none");
@@ -199,6 +216,10 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
                     host.textarea.removeAttribute('style');
                 }
 
+                // Restore values for htmlplus textarea.
+                host.toolbar.ancestor('.editor_atto_wrap').all('.CodeMirror-wrap')
+                    .removeAttribute('style')
+                    .setStyles(this._editorStyle);
             }
             host._wrapper.removeAttribute('style');
 
