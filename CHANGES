@@ -1,3 +1,8 @@
+version 20151220
+
+Enable better compatibility with htmlplus plugin. htmlplus window is
+dynamically resized and does not deactivate plugin.
+
 version 20150513
 
 Add a setting to require the capablity to arrange activities. The function
