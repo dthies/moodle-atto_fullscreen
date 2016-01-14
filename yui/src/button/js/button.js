@@ -138,11 +138,11 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
         host.textarea.setStyle("margin-bottom", parseFloat(host.editor.getComputedStyle('margin-bottom')) + 20);
 
         // Set dimensions for htmlplus textarea to match if installed.
-        host.toolbar.ancestor('.editor_atto_wrap').all('.CodeMirror-wrap').setStyles({
+        host.toolbar.ancestor().ancestor().all('.CodeMirror-wrap').setStyles({
             "padding": host.textarea.getStyle('padding'),
             "margin": host.textarea.getStyle('margin'),
-            "height": parseInt(host.textarea.getStyle('height')) - 20,
-            "maxHeight": parseInt(host.textarea.getStyle('maxHeight')) - 20,
+            "height": parseFloat(host.textarea.getStyle('height')) - 20,
+            "maxHeight": parseFloat(host.textarea.getStyle('maxHeight')) - 20,
             "width": host.textarea.getStyle('width')
         });
 
@@ -215,7 +215,7 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
                 }
 
                 // Restore values for htmlplus textarea.
-                host.toolbar.ancestor('.editor_atto_wrap').all('.CodeMirror-wrap')
+                host.toolbar.ancestor().ancestor().all('.CodeMirror-wrap')
                     .removeAttribute('style')
                     .setStyles(this._editorStyle);
             }
