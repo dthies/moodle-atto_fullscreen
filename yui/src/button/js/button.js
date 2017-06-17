@@ -141,17 +141,18 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
         host.toolbar.ancestor().ancestor().all('.CodeMirror-wrap').setStyles({
             "padding": host.textarea.getStyle('padding'),
             "margin": host.textarea.getStyle('margin'),
+            "left": host.textarea.getStyle('left'),
+            "top": host.textarea.getStyle('top'),
             "height": parseFloat(host.textarea.getStyle('height')) - 20,
             "maxHeight": parseFloat(host.textarea.getStyle('maxHeight')) - 20,
+            "position": "fixed",
             "width": host.textarea.getStyle('width')
         });
 
         if (hide) {
-            this.editor.hide();
             // If using htmlplus allow it to be position in editor's spot.
             if (host.textarea.hasAttribute('hidden') || host.textarea.getComputedStyle('display') === 'none') {
                 this._background.setStyles({
-                    "left": "0px",
                     "padding": host._wrapper.getComputedStyle('padding'),
                     "margin": host._wrapper.getComputedStyle('margin'),
                     "height": host._wrapper.getComputedStyle('height'),
@@ -159,6 +160,7 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
                 });
                 window.scroll(this._background.getX(), this._background.getY());
             }
+            this.editor.hide();
         }
     },
 
