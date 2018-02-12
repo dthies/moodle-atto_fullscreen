@@ -30,7 +30,7 @@ defined('MOODLE_INTERNAL') || die();
 function atto_fullscreen_strings_for_js() {
     global $PAGE;
 
-    $PAGE->requires->strings_for_js(array('fullscreen:desc'), 'editor_tinymce');
+    $PAGE->requires->strings_for_js(array('pluginname'), 'atto_fullscreen');
 }
 
 /**

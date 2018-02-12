@@ -46,7 +46,7 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
             callback: this._toggle
         });
         var host = this.get('host');
-        button.set('title', M.util.get_string('fullscreen:desc', 'editor_tinymce'));
+        button.set('title', M.util.get_string('pluginname', 'atto_fullscreen'));
 
         // In fullscreen mode the editor uses fixed positioning with a empty div for a background
         this._background = Y.Node.create('<div style="position: relative"></div>');
