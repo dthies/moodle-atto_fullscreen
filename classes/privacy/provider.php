@@ -15,17 +15,34 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Atto text editor integration version file.
+ * Privacy Subsystem implementation for atto_fullscreen.
  *
  * @package    atto_fullscreen
- * @copyright  2014 Daniel Thies <dthies@ccal.edu>
+ * @copyright  2018 Daniel Thies <dethies@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+namespace atto_fullscreen\privacy;
+
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2015122006;        // The current plugin version (Date: YYYYMMDDXX).
-$plugin->requires  = 2014051200;        // Requires this Moodle version.
-$plugin->component = 'atto_fullscreen';  // Full name of the plugin (used for diagnostics).
-$plugin->maturity = MATURITY_STABLE; // Maturity level.
-$plugin->release = 2015122001;
+/**
+ * Privacy Subsystem for atto_fullscreen implementing null_provider.
+ *
+ * @copyright   2018 Daniel Thies <dethies@gmail.com>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+class provider implements \core_privacy\local\metadata\null_provider {
+
+    use \core_privacy\local\legacy_polyfill;
+
+    /**
+     * Get the language string identifier with the component's language
+     * file to explain why this plugin stores no data.
+     *
+     * @return  string
+     */
+    public static function _get_reason() {
+        return 'privacy:metadata';
+    }
+}

@@ -23,6 +23,7 @@
  */
 
 $string['pluginname'] = 'Toggle full screen';
-$string['settings'] = 'Full screen settings';
-$string['requireedit'] = 'Require editing';
+$string['privacy:metadata'] = 'The Atto Toggle full screen plugin does not store any personal data.';
 $string['requireedit_desc'] = 'Require capability to manage activities before showing fullscreen button';
+$string['requireedit'] = 'Require editing';
+$string['settings'] = 'Full screen settings';
