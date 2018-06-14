@@ -107,7 +107,7 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
         var hide = host.editor.hasAttribute('hidden') || host.editor.getComputedStyle('display') === 'none';
 
         this._background.setStyles({
-            "left": - host.editor.get('winWidth') / 2,
+            "left": -host.editor.get('winWidth') / 2,
             "height": host.editor.get('winHeight'),
             "width": host.editor.get('winWidth')
         });
