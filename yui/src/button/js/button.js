@@ -54,18 +54,13 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
             this._setFullscreen(button);
             this.toolbar.after('click', Y.bind(this._fitToScreen, this));
             Y.on('windowresize', Y.bind(this._fitToScreen, this));
-            // Do not let html source plugin disable us.
-            host.textarea.after('focus', function() {
-               host.enablePlugins(FULLSCREEN);
-            });
-            // Prevent htmlplus from deactivating.
-            host.toolbar.after('click', function(e) {
-               if (e.target._node.className === 'atto_htmlplus_button') {
-                   host.enablePlugins(FULLSCREEN);
-               }
-            });
         }, this, button);
 
+    },
+
+    // Do not let other plugins disable us.
+    disableButtons: function() {
+        return this;
     },
 
     /**
