@@ -1,3 +1,11 @@
+version 2015122007
+
+Override the disable buttons function. The html plugin was changed
+in 3.6 to include htmlplus functionality. This resulted in fullscreen
+being disabled when html plugin was invoked. Now fullscreen ignores all
+disable requests as there is not a reason why any editor plugins should
+disable it.
+
 version 2015122006
 
 Add support for Privacy API
