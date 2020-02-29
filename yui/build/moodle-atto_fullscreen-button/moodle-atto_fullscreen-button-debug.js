@@ -57,11 +57,6 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
             this.toolbar.after('click', Y.bind(this._fitToScreen, this));
             Y.on('windowresize', Y.bind(this._fitToScreen, this));
         }, this, button);
-
-        // If editor loses focus, leave fullscreen.
-        host.editor.on('blur', function(e, button) {
-            this._setFullscreen(button);
-        }, this, button);
     },
 
     // Do not let other plugins disable us.
