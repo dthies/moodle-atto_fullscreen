@@ -1,3 +1,8 @@
+version 2015122008
+
+If the editor loses focus, drop out of fullscreen. This happens if
+user hit tab key.
+
 version 2015122007
 
 Override the disable buttons function. The html plugin was changed

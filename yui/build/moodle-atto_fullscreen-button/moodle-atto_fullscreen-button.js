@@ -17,7 +17,7 @@ YUI.add('moodle-atto_fullscreen-button', function (Y, NAME) {
 
 /*
  * @package    atto_fullscreen
- * @copyright  2014 Daniel Thies <dthies@ccal.edu>
+ * @copyright  2014 onward Daniel Thies <dethies@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -58,6 +58,10 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
             Y.on('windowresize', Y.bind(this._fitToScreen, this));
         }, this, button);
 
+        // If editor loses focus, leave fullscreen.
+        host.editor.on('blur', function(e, button) {
+            this._setFullscreen(button);
+        }, this, button);
     },
 
     // Do not let other plugins disable us.
@@ -106,7 +110,7 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
             "height": host.editor.get('winHeight'),
             "width": host.editor.get('winWidth')
         });
-        window.scroll(this._background.getX(), this._background.getY());
+        window.scrollTo(this._background.getX(), this._background.getY());
 
         host._wrapper.setStyles({
             "maxWidth": "100%",
@@ -155,7 +159,7 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
                     "height": host._wrapper.getComputedStyle('height'),
                     "width": host._wrapper.getComputedStyle('width')
                 });
-                window.scroll(this._background.getX(), this._background.getY());
+                window.scrollTo(this._background.getX(), this._background.getY());
             }
             this.editor.hide();
         }

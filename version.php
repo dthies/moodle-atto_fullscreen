@@ -18,14 +18,14 @@
  * Atto text editor integration version file.
  *
  * @package    atto_fullscreen
- * @copyright  2014 Daniel Thies <dthies@ccal.edu>
+ * @copyright  2014 onward Daniel Thies <dethies@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2015122007;        // The current plugin version (Date: YYYYMMDDXX).
+$plugin->version   = 2015122008;        // The current plugin version (Date: YYYYMMDDXX).
 $plugin->requires  = 2014051200;        // Requires this Moodle version.
 $plugin->component = 'atto_fullscreen';  // Full name of the plugin (used for diagnostics).
 $plugin->maturity = MATURITY_STABLE; // Maturity level.
-$plugin->release = 2015122002;
+$plugin->release = '1.0.1';
