@@ -57,6 +57,18 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
             this.toolbar.after('click', Y.bind(this._fitToScreen, this));
             Y.on('windowresize', Y.bind(this._fitToScreen, this));
         }, this, button);
+
+        // If editor loses focus, leave fullscreen.
+        Y.one('body').on('focus', function(e, button, host) {
+            var button = this.buttons[FULLSCREEN];
+
+            if (button.getData(STATE) && !host.editor.ancestor('.editor_atto_wrap').contains(e.target) &&
+                !e.target.hasClass('moodle-dialogue') && !e.target.ancestor('.moodle-dialogue') &&
+                !e.target.one('.moodle-dialogue')) {
+                this.unHighlightButtons(FULLSCREEN);
+                this._setFullscreen(button);
+            }
+        }, this, button, host);
     },
 
     // Do not let other plugins disable us.
