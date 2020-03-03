@@ -51,7 +51,6 @@ before_install:
   - export PATH="$(cd ci/bin; pwd):$(cd ci/vendor/bin; pwd):$PATH"
 
 install:
-  - moodle-plugin-ci add-plugin moodleou/moodle-filter_embedquestion
   - moodle-plugin-ci install
 
 script:
