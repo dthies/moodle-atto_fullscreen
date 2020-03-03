@@ -59,4 +59,4 @@ script:
   - moodle-plugin-ci mustache
   - moodle-plugin-ci grunt || [ "$MOODLE_BRANCH" = 'master' ]
   - moodle-plugin-ci phpunit
-  - moodle-plugin-ci behat --profile chrome || true # Behat not currently working due to Chrome version. Ignore failure.
+  - moodle-plugin-ci behat --profile chrome
