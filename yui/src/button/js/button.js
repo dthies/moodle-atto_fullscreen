@@ -46,7 +46,8 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
         var host = this.get('host');
         button.set('title', M.util.get_string('pluginname', 'atto_fullscreen'));
 
-        // In fullscreen mode the editor uses fixed positioning with a empty div for a background
+        // In fullscreen mode the editor uses fixed positioning with a empty
+        // div for a background.
         this._background = Y.Node.create('<div style="position: relative"></div>');
 
         // After all plugins have been loaded for the first time, finish configuration and add screen resizing listener.
@@ -58,8 +59,6 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
 
         // If editor loses focus, leave fullscreen.
         Y.one('body').on('focus', function(e, button, host) {
-            var button = this.buttons[FULLSCREEN];
-
             if (button.getData(STATE) && !host.editor.ancestor('.editor_atto_wrap').contains(e.target) &&
                 !e.target.hasClass('moodle-dialogue') && !e.target.ancestor('.moodle-dialogue') &&
                 !e.target.one('.moodle-dialogue')) {
@@ -124,9 +123,9 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
         });
 
         host.editor.show();
-        height = parseFloat(host.editor.getComputedStyle('height'))
-            + host.editor.get('winHeight')
-            - parseFloat(host._wrapper.getComputedStyle('height'));
+        height = parseFloat(
+            host.editor.getComputedStyle('height')
+        ) + host.editor.get('winHeight') - parseFloat(host._wrapper.getComputedStyle('height'));
         host.editor.setStyles({
             "height": height,
             "maxHeight": height
@@ -193,7 +192,7 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
             Y.one('body').insertBefore(this._background, host._wrapper);
             host._wrapper.setStyles({position: 'fixed', "top": '0px', left: '0px', scroll: "auto"});
 
-            // Use CSS to hide navigation
+            // Use CSS to hide navigation.
             Y.one('body').addClass('atto-fullscreen');
 
             host.textarea.setStyles({
