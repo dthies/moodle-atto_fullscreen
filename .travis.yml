@@ -1,5 +1,7 @@
 language: php
 
+dist: bionic
+
 sudo: required
 
 services:
@@ -35,6 +37,11 @@ matrix:
       - MOODLE_BRANCH=MOODLE_36_STABLE
       - DB=mysqli
 
+    - php: 7.1
+      env:
+      - MOODLE_BRANCH=MOODLE_35_STABLE
+      - DB=pgsql
+
 before_install:
   - phpenv config-rm xdebug.ini
   - nvm install 8.9
@@ -44,7 +51,6 @@ before_install:
   - export PATH="$(cd ci/bin; pwd):$(cd ci/vendor/bin; pwd):$PATH"
 
 install:
-  - moodle-plugin-ci add-plugin moodleou/moodle-filter_embedquestion
   - moodle-plugin-ci install
 
 script:
@@ -57,4 +63,4 @@ script:
   - moodle-plugin-ci mustache
   - moodle-plugin-ci grunt || [ "$MOODLE_BRANCH" = 'master' ]
   - moodle-plugin-ci phpunit
-  - moodle-plugin-ci behat --profile chrome || true # Behat not currently working due to Chrome version. Ignore failure.
+  - moodle-plugin-ci behat --profile chrome
