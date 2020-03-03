@@ -37,6 +37,11 @@ matrix:
       - MOODLE_BRANCH=MOODLE_36_STABLE
       - DB=mysqli
 
+    - php: 7.1
+      env:
+      - MOODLE_BRANCH=MOODLE_35_STABLE
+      - DB=pgsql
+
 before_install:
   - phpenv config-rm xdebug.ini
   - nvm install 8.9
