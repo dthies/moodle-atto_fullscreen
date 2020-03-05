@@ -16,7 +16,6 @@ Feature: Atto fullscreen editor button
     And the following "activities" exist:
       | activity   | name            | course  | idnumber   | section | assignsubmission_onlinetext_enabled |
       | assign     | Text Edit       | C1      | assign1    | 0       | 1                                   |
-    When I log in as "manager"
     And I log in as "admin"
     And I navigate to "Plugins > Text editors > Atto HTML edito > Atto toolbar settings" in site administration
     And I set the field "Toolbar config" to "other = html, fullscreen, bold, charmap"
@@ -61,7 +60,7 @@ Feature: Atto fullscreen editor button
     And I am on "Course 1" course homepage
     And I follow "Text Edit"
     And I click on "Add submission" "button"
-    Then "button.atto_fullscreen_button" "css_element" should exist
+    Then "Toggle full screen" "button" should exist
 
 @javascript @atto_fullscreen_settingtrue
   Scenario: Use setting to restrict access
@@ -73,4 +72,4 @@ Feature: Atto fullscreen editor button
     And I am on "Course 1" course homepage
     And I follow "Text Edit"
     And I click on "Add submission" "button"
-    Then "button.atto_fullscreen_button" "css_element" should not exist
+    Then "Toggle full screen" "button" should not exist
