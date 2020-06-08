@@ -4,6 +4,9 @@ dist: bionic
 
 sudo: required
 
+node_js:
+  - node
+
 services:
   mysql
 
