@@ -9,7 +9,7 @@ services:
 
 addons:
   firefox: "47.0.1"
-  postgresql: "12.2"
+  postgresql: "11"
   apt:
     packages:
     - openjdk-8-jre-headless
