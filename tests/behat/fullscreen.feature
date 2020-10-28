@@ -23,37 +23,37 @@ Feature: Atto fullscreen editor button
     And I open my profile in edit mode
     And I set the field "Description" to "Elephant"
 
-@javascript @atto_fullscreen_highlight
+  @javascript @atto_fullscreen_highlight
   Scenario: Click fullscreen button and check highlighting
     When I click on "Toggle full screen" "button"
     Then "button.atto_fullscreen_button.highlight" "css_element" should exist
 
-@javascript @atto_fullscreen_block
+  @javascript @atto_fullscreen_block
   Scenario: Click fullscreen button and block elements
     When I click on "Toggle full screen" "button"
     Then I should not see "country"
     And I should see "Elephant"
 
-@javascript @atto_fullscree_blur
+  @javascript @atto_fullscree_blur
   Scenario: Click fullscreen button and leave focus
     When I click on "Toggle full screen" "button"
     And I press tab key in ".editor_atto_content" "css_element"
     Then "button.atto_fullscreen_button:not(.highlight)" "css_element" should exist
 
-@javascript @atto_fullscreen_htmlcompat
+  @javascript @atto_fullscreen_htmlcompat
   Scenario: Use fullscreen with html button
     When I click on "HTML" "button"
     And I click on "Toggle full screen" "button"
     Then "button.atto_fullscreen_button.highlight" "css_element" should exist
 
-@javascript @atto_fullscreen_dialogue
+  @javascript @atto_fullscreen_dialogue
   Scenario: Use fullscreen with charmap dialogue
     When I click on "Toggle full screen" "button"
     And I click on "Insert character" "button"
     And I click on "cent sign" "button"
     Then "button.atto_fullscreen_button.highlight" "css_element" should exist
 
-@javascript @atto_fullscreen_settingfalse
+  @javascript @atto_fullscreen_settingfalse
   Scenario: Use setting to restrict access
     When I log out
     And I log in as "user1"
@@ -62,7 +62,7 @@ Feature: Atto fullscreen editor button
     And I click on "Add submission" "button"
     Then "Toggle full screen" "button" should exist
 
-@javascript @atto_fullscreen_settingtrue
+  @javascript @atto_fullscreen_settingtrue
   Scenario: Use setting to restrict access
     When I navigate to "Plugins > Text editors > Atto HTML edito > Full screen settings" in site administration
     And I set the field "Require editing" to "1"
