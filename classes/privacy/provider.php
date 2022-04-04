@@ -24,8 +24,6 @@
 
 namespace atto_fullscreen\privacy;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Privacy Subsystem for atto_fullscreen implementing null_provider.
  *

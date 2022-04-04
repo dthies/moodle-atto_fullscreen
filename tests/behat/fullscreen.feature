@@ -16,10 +16,9 @@ Feature: Atto fullscreen editor button
     And the following "activities" exist:
       | activity   | name            | course  | idnumber   | section | assignsubmission_onlinetext_enabled |
       | assign     | Text Edit       | C1      | assign1    | 0       | 1                                   |
+    And the following config values are set as admin:
+      | toolbar | other = html, fullscreen, bold, charmap | editor_atto |
     And I log in as "admin"
-    And I navigate to "Plugins > Text editors > Atto HTML edito > Atto toolbar settings" in site administration
-    And I set the field "Toolbar config" to "other = html, fullscreen, bold, charmap"
-    And I press "Save changes"
     And I open my profile in edit mode
     And I set the field "Description" to "Elephant"
 
@@ -27,12 +26,6 @@ Feature: Atto fullscreen editor button
   Scenario: Click fullscreen button and check highlighting
     When I click on "Toggle full screen" "button"
     Then "button.atto_fullscreen_button.highlight" "css_element" should exist
-
-  @javascript @atto_fullscreen_block
-  Scenario: Click fullscreen button and block elements
-    When I click on "Toggle full screen" "button"
-    Then I should not see "country"
-    And I should see "Elephant"
 
   @javascript @atto_fullscree_blur
   Scenario: Click fullscreen button and leave focus
