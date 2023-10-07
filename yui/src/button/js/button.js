@@ -82,7 +82,9 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
      */
     _toggle: function(e) {
         e.preventDefault();
-        var button = this.buttons[FULLSCREEN];
+        var button = this.buttons[FULLSCREEN],
+            host = this.get('host');
+        host.editor.focus();
 
         if (button.getData(STATE)) {
             this.unHighlightButtons(FULLSCREEN);
