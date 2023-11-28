@@ -209,6 +209,10 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
                 "position": "fixed"
             });
 
+            Y.one('.editor_atto').setStyles({
+                "z-index": 999
+            });
+
         } else {
             Y.one('body').setStyle('overflow', 'inherit');
             this._background.remove();
@@ -234,6 +238,10 @@ Y.namespace('M.atto_fullscreen').Button = Y.Base.create('button', Y.M.editor_att
 
             Y.one('body').removeClass('atto-fullscreen');
             host.textarea.setStyle('width', this.toolbar.getComputedStyle('width'));
+
+            Y.one('.editor_atto').setStyles({
+                "z-index": 'auto'
+            });
 
         }
         button.setData(STATE, !!mode);
