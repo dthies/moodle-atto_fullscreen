@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   test:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
 
     services:
       postgres:
@@ -28,45 +28,33 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - php: '8.2'
+            moodle-branch: 'main'
+            database: 'pgsql'
+          - php: '8.3'
+            moodle-branch: 'main'
+            database: 'mariadb'
+          - php: '8.2'
+            moodle-branch: 'MOODLE_405_STABLE'
+            database: 'mariadb'
+          - php: '8.2'
+            moodle-branch: 'MOODLE_405_STABLE'
+            database: 'pgsql'
+          - php: '8.2'
+            moodle-branch: 'MOODLE_404_STABLE'
+            database: 'mariadb'
+          - php: '8.1'
+            moodle-branch: 'MOODLE_403_STABLE'
+            database: 'pgsql'
           - php: '8.0'
-            moodle-branch: 'master'
+            moodle-branch: 'MOODLE_402_STABLE'
             database: 'pgsql'
-          - php: '8.1'
-            moodle-branch: 'master'
-            database: 'mariadb'
-          - php: '8.1'
-            moodle-branch: 'MOODLE_403_STABLE'
-            database: 'pgsql'
-          - php: '8.1'
-            moodle-branch: 'MOODLE_403_STABLE'
-            database: 'mariadb'
           - php: '8.0'
             moodle-branch: 'MOODLE_402_STABLE'
             database: 'mariadb'
           - php: '8.0'
             moodle-branch: 'MOODLE_401_STABLE'
             database: 'pgsql'
-          - php: '8.0'
-            moodle-branch: 'MOODLE_400_STABLE'
-            database: 'mariadb'
-          - php: '8.0'
-            moodle-branch: 'MOODLE_311_STABLE'
-            database: 'pgsql'
-          - php: '7.4'
-            moodle-branch: 'MOODLE_310_STABLE'
-            database: 'pgsql'
-          - php: '7.4'
-            moodle-branch: 'MOODLE_39_STABLE'
-            database: 'pgsql'
-          - php: '7.3'
-            moodle-branch: 'MOODLE_38_STABLE'
-            database: 'pgsql'
-          - php: '7.2'
-            moodle-branch: 'MOODLE_37_STABLE'
-            database: 'pgsql'
-          - php: '7.0'
-            moodle-branch: 'MOODLE_35_STABLE'
-            database: 'mariadb'
 
     steps:
       - name: Check out repository code
@@ -128,7 +116,6 @@ jobs:
         run: moodle-plugin-ci mustache
 
       - name: Grunt
-        continue-on-error: true # This step will show errors but will not fail
         if: ${{ always() }}
         run: moodle-plugin-ci grunt
 
