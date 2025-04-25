@@ -1,5 +1,6 @@
 .atto-fullscreen .drawer-toggles,
 .atto-fullscreen .drawer,
+.atto-fullscreen footer,
 .atto-fullscreen header {
     display: none;
     visibility: hidden;
