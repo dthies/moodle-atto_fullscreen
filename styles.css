@@ -49,3 +49,11 @@
     display: none;
     visibility: hidden;
 }
+
+.atto-fullscreen .editor_atto_wrap div.editor_atto {
+    z-index: 999;
+}
+
+.CodeMirror-wrap {
+    z-index: 999;
+}
