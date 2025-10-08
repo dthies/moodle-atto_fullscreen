@@ -31,11 +31,11 @@ jobs:
           - php: '8.2'
             moodle-branch: 'main'
             database: 'pgsql'
-          - php: '8.4'
+          - php: '8.3'
             moodle-branch: 'main'
             database: 'mariadb'
           - php: '8.3'
-            moodle-branch: 'MOODLE_500_STABLE'
+            moodle-branch: 'MOODLE_501_STABLE'
             database: 'pgsql'
           - php: '8.2'
             moodle-branch: 'MOODLE_500_STABLE'
@@ -80,7 +80,7 @@ jobs:
           sudo locale-gen en_AU.UTF-8
 
       - name: Install atto
-        if: ${{ matrix.moodle-branch == 'main' || matrix.moodle-branch == 'MOODLE_500_STABLE' }}
+        if: ${{ matrix.moodle-branch == 'main' || matrix.moodle-branch == 'MOODLE_500_STABLE' || matrix.moodle-branch == 'MOODLE_501_STABLE' }}
         run: |
           moodle-plugin-ci add-plugin --branch main moodlehq/moodle-editor_atto
       - name: Install moodle-plugin-ci
