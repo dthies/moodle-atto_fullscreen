@@ -28,10 +28,12 @@ $ADMIN->add('editoratto', new admin_category('atto_fullscreen', new lang_string(
 
 $settings = new admin_settingpage('atto_fullscreen_settings', new lang_string('settings', 'atto_fullscreen'));
 if ($ADMIN->fulltree) {
-    $setting = new admin_setting_configcheckbox('atto_fullscreen/requireedit',
+    $setting = new admin_setting_configcheckbox(
+        'atto_fullscreen/requireedit',
         get_string('requireedit', 'atto_fullscreen'),
         get_string('requireedit_desc', 'atto_fullscreen'),
-        0);
+        0
+    );
 
     $settings->add($setting);
 }
