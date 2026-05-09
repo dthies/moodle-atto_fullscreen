@@ -49,3 +49,13 @@
     display: none;
     visibility: hidden;
 }
+
+.atto-fullscreen .drawer.drawer-left {
+    display: none;
+    visibility: hidden;
+}
+
+.atto-fullscreen .drawer-left-toggle {
+    display: none;
+    visibility: hidden;
+}
